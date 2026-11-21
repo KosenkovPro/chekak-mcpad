@@ -59,6 +59,22 @@ The vault is taken from `--vault`, from the variable `MCPAD_VAULT` or from the v
 run of the application. `mcpad-mcp --help` lists every option; the changes are only made without a
 confirmation when the program is started with `--allow-writes`.
 
+## Downloads
+
+The version `0.1.0` is published in the release
+[releases/tag/v0.1.0](https://github.com/KosenkovPro/chekak-mcpad/releases/tag/v0.1.0).
+
+| Platform | Files |
+| --- | --- |
+| Windows (x64) | `MCPad_0.1.0_x64_en-US.msi`, `MCPad_0.1.0_x64-setup.exe` |
+| Ubuntu (x64) | `MCPad_0.1.0_amd64.deb`, `MCPad_0.1.0_amd64.AppImage` |
+| macOS (Apple Silicon) | `MCPad_0.1.0_aarch64.dmg`, `MCPad_aarch64.app.tar.gz` |
+
+The MCP server for the clients that start it themselves is attached as
+`mcpad-mcp-<target>.tar.gz` for the three platforms.
+
+The builds are not signed, so macOS and Windows ask for a confirmation the first time.
+
 ## Running it
 
 ```bash
