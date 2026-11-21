@@ -18,10 +18,10 @@ keywords = ["editor", "notes", "knowledge-base", "mcp", "canvas"]
 categories = ["text-editors"]
 
 [workspace.dependencies]
-mcpad-core = { path = "crates/mcpad-core" }
-mcpad-text = { path = "crates/mcpad-text" }
-mcpad-app = { path = "crates/mcpad-app" }
-mcpad-mcp = { path = "crates/mcpad-mcp" }
+mcpad-core = { path = "crates/mcpad-core", version = "0.1.0" }
+mcpad-text = { path = "crates/mcpad-text", version = "0.1.0" }
+mcpad-app = { path = "crates/mcpad-app", version = "0.1.0" }
+mcpad-mcp = { path = "crates/mcpad-mcp", version = "0.1.0" }
 
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
@@ -31,7 +31,6 @@ ropey = "1.6"
 encoding_rs = "0.8"
 globset = "0.4"
 regex = "1"
-dirs = "5"
 
 tempfile = "3"
 

@@ -9,6 +9,7 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "node --test src/theme/engine.test.ts src/theme/icons.test.ts src/editor/search.test.ts",
+    "tauri": "tauri",
     "icons:install": "node ../../scripts/install-icons.mjs",
     "icons:app": "tauri icon src-tauri/icons/source/app-icon.svg",
     "themes:validate": "npm run themes:validate --prefix ../.."

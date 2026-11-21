@@ -89,6 +89,11 @@ jobs:
               --title "MCPad $RELEASE_TAG" \
               --notes-file notes.md \
               --target "$GITHUB_SHA"
+          else
+            gh release edit "$RELEASE_TAG" \
+              --title "MCPad $RELEASE_TAG" \
+              --notes-file notes.md \
+              --target "$GITHUB_SHA"
           fi
           echo "id=$(gh release view "$RELEASE_TAG" --json id --jq .id)" >> "$GITHUB_OUTPUT"
 
