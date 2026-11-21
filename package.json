@@ -1,0 +1,20 @@
+{
+  "name": "mcpad",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "description": "AI-first Rust text editor and local-first knowledge base",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "themes:build": "node theme/source/build-themes.mjs",
+    "themes:validate": "node scripts/validate-themes.mjs",
+    "icons:install": "node scripts/install-icons.mjs",
+    "icons:check": "node scripts/install-icons.mjs --check",
+    "icons:update": "node scripts/install-icons.mjs --update",
+    "test": "node --test apps/desktop/src/theme/engine.test.ts apps/desktop/src/theme/icons.test.ts apps/desktop/src/editor/search.test.ts",
+    "check": "npm run themes:validate && npm test"
+  }
+}

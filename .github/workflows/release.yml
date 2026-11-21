@@ -1,0 +1,182 @@
+name: Release
+
+# The release is built when a tag is pushed. The workflow builds the desktop
+# shell for Windows, Ubuntu and macOS and the MCP server for the same
+# platforms, and puts everything into one GitHub release.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "The tag of the release, for example v0.1.0"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+env:
+  RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+
+jobs:
+  check:
+    name: Check the version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: The tag and the manifests hold the same version
+        run: |
+          node -e '
+            const fs = require("fs");
+            const version = process.env.RELEASE_TAG.replace(/^v/, "");
+            const manifests = {
+              "Cargo.toml": fs.readFileSync("Cargo.toml", "utf8").match(/^version = "([^"]+)"/m)[1],
+              "package.json": JSON.parse(fs.readFileSync("package.json", "utf8")).version,
+              "apps/desktop/package.json": JSON.parse(fs.readFileSync("apps/desktop/package.json", "utf8")).version,
+              "apps/desktop/src-tauri/tauri.conf.json": JSON.parse(fs.readFileSync("apps/desktop/src-tauri/tauri.conf.json", "utf8")).version,
+            };
+            let broken = false;
+            for (const [name, value] of Object.entries(manifests)) {
+              if (value !== version) {
+                console.error(`${name} holds ${value}, the tag holds ${version}`);
+                broken = true;
+              }
+            }
+            if (broken) process.exit(1);
+            console.log(`every manifest holds ${version}`);
+          '
+
+  release:
+    name: Release ${{ env.RELEASE_TAG }}
+    needs: check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      release_id: ${{ steps.create.outputs.id }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create the release
+        id: create
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NOTES: |
+            MCPad is an AI-first text editor and a local-first knowledge base.
+
+            The vault is a plain folder with plain `.md` and `.canvas` files. The
+            built-in MCP server lets an AI agent read the vault and, with the
+            confirmation of the user, change it.
+
+            **The builds**
+
+            * Windows: the installer `.msi` and the portable `.exe`
+            * Ubuntu: the package `.deb` and the `AppImage`
+            * macOS: the disk image `.dmg` for Apple Silicon
+
+            The MCP server for the clients that start it themselves is attached as
+            `mcpad-mcp-<target>.tar.gz`.
+
+            The builds are not signed yet, so macOS and Windows ask for a
+            confirmation the first time.
+        run: |
+          printf '%s\n' "$NOTES" > notes.md
+          if ! gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release create "$RELEASE_TAG" \
+              --title "MCPad $RELEASE_TAG" \
+              --notes-file notes.md \
+              --target "$GITHUB_SHA"
+          fi
+          echo "id=$(gh release view "$RELEASE_TAG" --json id --jq .id)" >> "$GITHUB_OUTPUT"
+
+  bundle:
+    name: MCPad ${{ matrix.platform }}
+    needs: release
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: windows-latest
+            target: x86_64-pc-windows-msvc
+            bundles: msi,nsis
+          - platform: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
+            bundles: deb,appimage
+          - platform: macos-latest
+            target: aarch64-apple-darwin
+            bundles: dmg,app
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - name: Install the Linux dependencies
+        if: matrix.platform == 'ubuntu-22.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+
+      - name: Install the dependencies
+        run: npm ci
+
+      - name: Build and publish the bundles
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ env.RELEASE_TAG }}
+          releaseId: ${{ needs.release.outputs.release_id }}
+          releaseName: MCPad ${{ env.RELEASE_TAG }}
+          args: --target ${{ matrix.target }} --bundles ${{ matrix.bundles }}
+
+  mcp:
+    name: MCP server ${{ matrix.platform }}
+    needs: bundle
+    runs-on: ${{ matrix.platform }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: windows-latest
+            target: x86_64-pc-windows-msvc
+          - platform: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
+          - platform: macos-latest
+            target: aarch64-apple-darwin
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Build the MCP server
+        run: cargo build --release -p mcpad-mcp --target ${{ matrix.target }}
+
+      - name: Pack the MCP server
+        shell: bash
+        run: |
+          cd "target/${{ matrix.target }}/release"
+          if [ "${{ runner.os }}" = "Windows" ]; then
+            tar czf "mcpad-mcp-${{ matrix.target }}.tar.gz" mcpad-mcp.exe
+          else
+            tar czf "mcpad-mcp-${{ matrix.target }}.tar.gz" mcpad-mcp
+          fi
+
+      - name: Put the MCP server into the release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "$RELEASE_TAG" \
+            "target/${{ matrix.target }}/release/mcpad-mcp-${{ matrix.target }}.tar.gz" \
+            --clobber

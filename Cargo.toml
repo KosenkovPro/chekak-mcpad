@@ -1,0 +1,43 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/mcpad-core",
+    "crates/mcpad-text",
+    "crates/mcpad-app",
+    "crates/mcpad-mcp",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.77"
+license = "Apache-2.0"
+repository = "https://github.com/kosenkov-pro/chekak-mcpad"
+authors = ["Ivan Kosenkov <kosenkov.pro>"]
+keywords = ["editor", "notes", "knowledge-base", "mcp", "canvas"]
+categories = ["text-editors"]
+
+[workspace.dependencies]
+mcpad-core = { path = "crates/mcpad-core" }
+mcpad-text = { path = "crates/mcpad-text" }
+mcpad-app = { path = "crates/mcpad-app" }
+mcpad-mcp = { path = "crates/mcpad-mcp" }
+
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "1"
+
+ropey = "1.6"
+encoding_rs = "0.8"
+globset = "0.4"
+regex = "1"
+dirs = "5"
+
+tempfile = "3"
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true

@@ -1,0 +1,36 @@
+[package]
+name = "mcpad-desktop"
+description = "MCPad desktop shell"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.77"
+license = "Apache-2.0"
+repository = "https://github.com/kosenkov-pro/chekak-mcpad"
+authors = ["Ivan Kosenkov <kosenkov.pro>"]
+
+[lib]
+name = "mcpad_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+mcpad-core = { path = "../../../crates/mcpad-core" }
+mcpad-text = { path = "../../../crates/mcpad-text" }
+mcpad-app = { path = "../../../crates/mcpad-app" }
+mcpad-mcp = { path = "../../../crates/mcpad-mcp" }
+
+[features]
+# Enabled by `tauri build --features custom-protocol`.
+custom-protocol = ["tauri/custom-protocol"]
+
+[dev-dependencies]
+tempfile = "3"
+
+# The desktop shell is its own workspace: it pulls the Tauri toolchain and its
+# system dependencies, which must not block the plain Rust workspace.
+[workspace]

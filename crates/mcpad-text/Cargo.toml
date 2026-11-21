@@ -1,0 +1,19 @@
+[package]
+name = "mcpad-text"
+description = "Text primitives for MCPad: encodings, line endings, lazy access to huge files and rope backed buffers"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+mcpad-core = { workspace = true }
+serde = { workspace = true }
+thiserror = { workspace = true }
+ropey = { workspace = true }
+encoding_rs = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }

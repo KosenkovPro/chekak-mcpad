@@ -1,0 +1,39 @@
+{
+  "name": "@mcpad/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "MCPad desktop shell (Tauri v2 + CodeMirror 6 + React Flow)",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "node --test src/theme/engine.test.ts src/theme/icons.test.ts src/editor/search.test.ts",
+    "icons:install": "node ../../scripts/install-icons.mjs",
+    "icons:app": "tauri icon src-tauri/icons/source/app-icon.svg",
+    "themes:validate": "npm run themes:validate --prefix ../.."
+  },
+  "dependencies": {
+    "@codemirror/autocomplete": "^6.18.0",
+    "@codemirror/commands": "^6.8.0",
+    "@codemirror/lang-markdown": "^6.3.2",
+    "@codemirror/language": "^6.11.0",
+    "@codemirror/search": "^6.5.10",
+    "@codemirror/state": "^6.5.0",
+    "@codemirror/view": "^6.36.0",
+    "@tauri-apps/api": "^2.0.0",
+    "@xyflow/react": "^12.3.0",
+    "@lezer/highlight": "^1.2.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.0.0",
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.5"
+  }
+}

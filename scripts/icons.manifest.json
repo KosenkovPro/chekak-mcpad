@@ -1,0 +1,113 @@
+{
+  "source": {
+    "name": "Tabler Icons",
+    "repository": "tabler/tabler-icons",
+    "revision": "4581ad20d8d13e24f6c3be75caaea1c4ad6c4b35",
+    "path": "icons/outline",
+    "license": "MIT",
+    "copyright": "Copyright (c) 2020-2026 Paweł Kuna",
+    "licenseUrl": "https://github.com/tabler/tabler-icons/blob/4581ad20d8d13e24f6c3be75caaea1c4ad6c4b35/LICENSE"
+  },
+  "icons": [
+    {
+      "name": "file",
+      "file": "file-text.svg",
+      "sha256": "afc807ae397fc2419ac5cbca6a1e085a5f761277397682cbad3d907ca78693f5"
+    },
+    {
+      "name": "file-plus",
+      "file": "file-plus.svg",
+      "sha256": "fb1afebc6cdfe0679ed76018d2d2dbb96d927dddb093857e0c6a992d06cf38df"
+    },
+    {
+      "name": "folder",
+      "file": "folder.svg",
+      "sha256": "acdf398775addb8104673e5a8ef29d01d40184c6a5b3c62a93f10309cf9ef253"
+    },
+    {
+      "name": "search",
+      "file": "search.svg",
+      "sha256": "3dd53b9606283dfa0adcb0b10a7d9a4432369d4bebcfacf67f80fbe358381c34"
+    },
+    {
+      "name": "settings",
+      "file": "settings.svg",
+      "sha256": "ef9cf42d822c00b4fad5bc5eeceddd4e1ec3774bb7ddd09891d0fba274bc3e95"
+    },
+    {
+      "name": "mic",
+      "file": "microphone.svg",
+      "sha256": "21aacc5c6cc7b28b03a179053a7aaf69eb6d23d333ab4b40504f2873fb07a5f8"
+    },
+    {
+      "name": "canvas",
+      "file": "layout-grid.svg",
+      "sha256": "91f923bcca6e9201ccedd2a10bb5d5a7eb3dbb5fa5a26af394d362f35c935237"
+    },
+    {
+      "name": "note",
+      "file": "notes.svg",
+      "sha256": "e49de017d8ac88c436227bdc514daf16ff34482543fbfeb777c25efc84c709af"
+    },
+    {
+      "name": "chevron-right",
+      "file": "chevron-right.svg",
+      "sha256": "83733bb6e03e1d20fd2674d06a493642c8ea6eef76c44ebb2239b9ef17dedff7"
+    },
+    {
+      "name": "check",
+      "file": "check.svg",
+      "sha256": "e206067a7d570997b5b3a7d30ab287c0b15a492787649a8b96dff8fad2862fbe"
+    },
+    {
+      "name": "close",
+      "file": "x.svg",
+      "sha256": "9350785360414c39450c3505f17d1745e55a7534edace8548e30cf49e3727d43"
+    },
+    {
+      "name": "lock",
+      "file": "lock.svg",
+      "sha256": "407856048124fdd63239f75a3640ca8f20a9acbc1f49cac9de0bcdb1cb42ec5f"
+    },
+    {
+      "name": "cloud",
+      "file": "cloud.svg",
+      "sha256": "abbbc58eb9bdd3e5b1f41b28b1d9743274d79762d248c88d72455c47f674f8e2"
+    },
+    {
+      "name": "sync",
+      "file": "refresh.svg",
+      "sha256": "9dd8ab8cac268489501cbb0a106d93cc3f367add493d20c47ec1e1d9804c760a"
+    },
+    {
+      "name": "trash",
+      "file": "trash.svg",
+      "sha256": "4b90fa07a6d980736951d9e83b91432972b2bcecf81be4578608a0983f2ebc9d"
+    },
+    {
+      "name": "edit",
+      "file": "edit.svg",
+      "sha256": "0881791f500a9e4a6a791f7798ae0d31d303f978167505e0e1adbe4ac5a965b5"
+    },
+    {
+      "name": "plus",
+      "file": "plus.svg",
+      "sha256": "9cc497d4cc1eb38cf9daae18f41ffdc1a5e2a8431d70247b0854978f303f28d6"
+    },
+    {
+      "name": "copy",
+      "file": "copy.svg",
+      "sha256": "3a455a299db4ec939fd0473d15c81c1d3f30f65dec81a7de816317c989b06073"
+    },
+    {
+      "name": "robot",
+      "file": "robot.svg",
+      "sha256": "c42ca8773a82b2bbcfc041fbfef2e207753c9f4e6ab2e5521c173c0497092458"
+    }
+  ],
+  "app": {
+    "file": "file-text.svg",
+    "path": "icons/filled",
+    "sha256": "087a3830505495565caf49430b1464f1c6bd550f4d0bb29114012f869684279b"
+  }
+}

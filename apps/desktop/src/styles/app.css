@@ -1,0 +1,578 @@
+/*
+ * The shell of MCPad.
+ *
+ * Every colour, radius and font comes from the design tokens, so the whole
+ * interface follows the active theme without a single hardcoded value.
+ */
+
+:root {
+  --mcpad-spacing-sm: 4px;
+  --mcpad-spacing-md: 8px;
+  --mcpad-spacing-lg: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--mcpad-typography-font-family-ui);
+  font-size: var(--mcpad-typography-font-size-md);
+  background: var(--mcpad-bg);
+  color: var(--mcpad-fg);
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.app-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mcpad-spacing-md);
+  padding: var(--mcpad-spacing-sm) var(--mcpad-spacing-md);
+  background: var(--mcpad-color-component-toolbar-bg);
+  border-bottom: 1px solid var(--mcpad-color-component-toolbar-border);
+  color: var(--mcpad-color-component-toolbar-text);
+}
+
+.app-brand {
+  font-weight: var(--mcpad-typography-font-weight-semibold);
+  letter-spacing: var(--mcpad-typography-letter-spacing-wide);
+}
+
+.app-theme {
+  display: flex;
+  gap: var(--mcpad-spacing-sm);
+}
+
+.app-vault {
+  display: flex;
+  align-items: center;
+  gap: var(--mcpad-spacing-sm);
+  flex: 1;
+  max-width: 640px;
+}
+
+.app-vault input {
+  flex: 1;
+  min-width: 160px;
+  padding: var(--mcpad-spacing-sm) var(--mcpad-spacing-md);
+  border: 1px solid var(--mcpad-border);
+  border-radius: var(--mcpad-radius-sm);
+  background: var(--mcpad-bg-sunken);
+  color: var(--mcpad-fg);
+  font: inherit;
+}
+
+.app-vault button,
+.app-theme button {
+  padding: var(--mcpad-spacing-sm) var(--mcpad-spacing-md);
+  border: 1px solid var(--mcpad-border);
+  border-radius: var(--mcpad-radius-sm);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+}
+
+.app-vault button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.app-theme button.is-active {
+  background: var(--mcpad-accent);
+  border-color: var(--mcpad-accent);
+  color: var(--mcpad-accent-fg);
+}
+
+.app-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.app-sidebar {
+  width: 260px;
+  padding: var(--mcpad-spacing-md);
+  background: var(--mcpad-color-component-sidebar-bg);
+  border-right: 1px solid var(--mcpad-color-component-sidebar-border);
+  color: var(--mcpad-color-component-sidebar-text);
+  overflow: auto;
+}
+
+.app-sidebar-title {
+  margin-bottom: var(--mcpad-spacing-md);
+  font-size: var(--mcpad-typography-font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--mcpad-typography-letter-spacing-wide);
+  color: var(--mcpad-fg-muted);
+}
+
+.app-tree {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.app-tree-files {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.app-tree-dir {
+  display: flex;
+  align-items: center;
+  gap: var(--mcpad-spacing-sm);
+  padding: var(--mcpad-spacing-sm) var(--mcpad-spacing-md);
+  font-size: var(--mcpad-typography-font-size-xs);
+  color: var(--mcpad-fg-muted);
+}
+
+.app-icon {
+  flex: 0 0 auto;
+  color: var(--mcpad-fg-muted);
+}
+
+.app-tree button.is-active .app-icon {
+  color: var(--mcpad-accent);
+}
+
+.app-tree button {
+  display: flex;
+  align-items: center;
+  gap: var(--mcpad-spacing-sm);
+  width: 100%;
+  padding: var(--mcpad-spacing-sm) var(--mcpad-spacing-md);
+  border: none;
+  border-radius: var(--mcpad-radius-sm);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.app-tree button:hover {
+  background: var(--mcpad-color-semantic-surface-hover);
+}
+
+.app-tree button.is-active {
+  background: var(--mcpad-color-semantic-surface-selected);
+}
+
+.app-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.app-tabs {
+  display: flex;
+  gap: 2px;
+  padding: var(--mcpad-spacing-sm) var(--mcpad-spacing-sm) 0;
+  background: var(--mcpad-color-component-tab-bg);
+  overflow-x: auto;
+}
+
+.app-tab {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--mcpad-radius-sm) var(--mcpad-radius-sm) 0 0;
+}
+
+.app-tab button {
+  padding: var(--mcpad-spacing-sm) var(--mcpad-spacing-md);
+  border: none;
+  border-radius: inherit;
+  background: transparent;
+  color: var(--mcpad-color-component-tab-inactive-text);
+  cursor: pointer;
+  font: inherit;
+  white-space: nowrap;
+}
+
+.app-tab.is-active {
+  background: var(--mcpad-color-component-tab-active-bg);
+}
+
+.app-tab.is-active button {
+  color: var(--mcpad-color-component-tab-active-text);
+}
+
+.app-tab .app-tab-close {
+  padding-left: 0;
+  padding-right: var(--mcpad-spacing-sm);
+  opacity: 0.6;
+}
+
+.app-tab .app-tab-close:hover {
+  opacity: 1;
+}
+
+.app-panes {
+  display: flex;
+  height: 100%;
+  min-height: 0;
+}
+
+.app-pane {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  border-right: 1px solid var(--mcpad-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.app-pane:last-child {
+  border-right: none;
+}
+
+.app-pane-title {
+  padding: var(--mcpad-spacing-sm) var(--mcpad-spacing-md);
+  font-size: var(--mcpad-typography-font-size-xs);
+  color: var(--mcpad-fg-muted);
+  border-bottom: 1px solid var(--mcpad-border);
+}
+
+.app-editor {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.editor {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.editor-host {
+  flex: 1;
+  min-height: 0;
+}
+
+.editor-host .cm-editor {
+  height: 100%;
+}
+
+.editor-search {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mcpad-spacing-sm);
+  padding: var(--mcpad-spacing-sm) var(--mcpad-spacing-md);
+  background: var(--mcpad-bg-raised);
+  border-bottom: 1px solid var(--mcpad-border);
+}
+
+.editor-search-row {
+  display: flex;
+  align-items: center;
+  gap: var(--mcpad-spacing-sm);
+}
+
+.editor-search-input {
+  flex: 1;
+  min-width: 120px;
+  padding: 2px var(--mcpad-spacing-sm);
+  border: 1px solid var(--mcpad-border);
+  border-radius: var(--mcpad-radius-xs);
+  background: var(--mcpad-bg-sunken);
+  color: inherit;
+  font: inherit;
+}
+
+.editor-search-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--mcpad-spacing-sm);
+  font-size: var(--mcpad-typography-font-size-xs);
+  color: var(--mcpad-fg-muted);
+  white-space: nowrap;
+}
+
+.editor-search-count,
+.editor-search-message {
+  font-size: var(--mcpad-typography-font-size-xs);
+  color: var(--mcpad-fg-muted);
+}
+
+.editor-search-count {
+  margin-left: auto;
+}
+
+.editor-search-row button {
+  padding: 2px var(--mcpad-spacing-sm);
+  border: 1px solid var(--mcpad-border);
+  border-radius: var(--mcpad-radius-xs);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  white-space: nowrap;
+}
+
+.app-large-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mcpad-spacing-md);
+  padding: var(--mcpad-spacing-sm) var(--mcpad-spacing-md);
+  background: var(--mcpad-bg-raised);
+  border-bottom: 1px solid var(--mcpad-border);
+  color: var(--mcpad-warning);
+  font-size: var(--mcpad-typography-font-size-xs);
+}
+
+.app-large-banner button {
+  padding: 2px var(--mcpad-spacing-md);
+  border: 1px solid var(--mcpad-border);
+  border-radius: var(--mcpad-radius-sm);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  white-space: nowrap;
+}
+
+.app-status-right input {
+  width: 72px;
+  padding: 2px var(--mcpad-spacing-sm);
+  border: 1px solid var(--mcpad-border);
+  border-radius: var(--mcpad-radius-xs);
+  background: var(--mcpad-bg-sunken);
+  color: inherit;
+  font: inherit;
+}
+
+.app-empty {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  color: var(--mcpad-fg-muted);
+}
+
+.app-statusbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mcpad-spacing-lg);
+  padding: var(--mcpad-spacing-sm) var(--mcpad-spacing-md);
+  background: var(--mcpad-color-component-statusbar-bg);
+  color: var(--mcpad-color-component-statusbar-text);
+  font-size: var(--mcpad-typography-font-size-xs);
+  border-top: 1px solid var(--mcpad-border);
+}
+
+.app-status-right {
+  display: flex;
+  align-items: center;
+  gap: var(--mcpad-spacing-md);
+}
+
+.app-status-right label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--mcpad-spacing-sm);
+}
+
+.app-status-right select {
+  padding: 2px var(--mcpad-spacing-sm);
+  border: 1px solid var(--mcpad-border);
+  border-radius: var(--mcpad-radius-xs);
+  background: var(--mcpad-bg-sunken);
+  color: inherit;
+  font: inherit;
+}
+
+.app-dirty {
+  color: var(--mcpad-warning);
+}
+
+/*
+ * The panel of the MCP server.
+ *
+ * It stands on the right side of the window and shows where the AI clients
+ * have to connect and every change they ask for.
+ */
+
+.app-mcp {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 400px;
+  max-width: 92vw;
+  display: flex;
+  flex-direction: column;
+  gap: var(--mcpad-spacing-lg);
+  padding: var(--mcpad-spacing-lg);
+  overflow-y: auto;
+  background: var(--mcpad-color-component-modal-bg);
+  border-left: 1px solid var(--mcpad-color-component-modal-border);
+  color: var(--mcpad-fg);
+  z-index: 20;
+}
+
+.app-mcp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: var(--mcpad-typography-font-weight-semibold);
+}
+
+.app-mcp-header button {
+  border: none;
+  background: none;
+  color: inherit;
+  font-size: var(--mcpad-typography-font-size-xl);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.app-mcp-status,
+.app-mcp-pending {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mcpad-spacing-sm);
+}
+
+.app-mcp-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--mcpad-spacing-md);
+}
+
+.app-mcp-key {
+  min-width: 60px;
+  color: var(--mcpad-fg-muted);
+  font-size: var(--mcpad-typography-font-size-sm);
+}
+
+.app-mcp-row code {
+  font-family: var(--mcpad-typography-font-family-mono);
+  font-size: var(--mcpad-typography-font-size-sm);
+}
+
+.app-mcp-token {
+  word-break: break-all;
+}
+
+.app-mcp-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--mcpad-spacing-sm);
+  align-self: flex-start;
+  padding: var(--mcpad-spacing-sm) var(--mcpad-spacing-md);
+  border: 1px solid var(--mcpad-border);
+  border-radius: var(--mcpad-radius-sm);
+  background: var(--mcpad-bg-sunken);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.app-mcp-hint {
+  margin: 0;
+  color: var(--mcpad-fg-muted);
+  font-size: var(--mcpad-typography-font-size-sm);
+  line-height: var(--mcpad-typography-line-height-relaxed);
+}
+
+.app-mcp-title {
+  display: flex;
+  align-items: center;
+  gap: var(--mcpad-spacing-sm);
+  font-weight: var(--mcpad-typography-font-weight-medium);
+}
+
+.app-mcp-badge {
+  min-width: 18px;
+  padding: 0 5px;
+  border-radius: var(--mcpad-radius-full);
+  background: var(--mcpad-color-component-mcp-badge);
+  color: var(--mcpad-accent-fg);
+  font-size: var(--mcpad-typography-font-size-xs);
+  text-align: center;
+}
+
+.app-mcp-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mcpad-spacing-sm);
+  padding: var(--mcpad-spacing-md);
+  border: 1px solid var(--mcpad-border);
+  border-radius: var(--mcpad-radius-md);
+  background: var(--mcpad-bg-sunken);
+}
+
+.app-mcp-card-title {
+  color: var(--mcpad-color-component-mcp-tool-write);
+  font-weight: var(--mcpad-typography-font-weight-medium);
+}
+
+.app-mcp-card-path {
+  font-family: var(--mcpad-typography-font-family-mono);
+  font-size: var(--mcpad-typography-font-size-sm);
+  word-break: break-all;
+}
+
+.app-mcp-card-summary {
+  color: var(--mcpad-fg-secondary);
+  font-size: var(--mcpad-typography-font-size-sm);
+}
+
+.app-mcp-preview {
+  max-height: 160px;
+  margin: 0;
+  padding: var(--mcpad-spacing-sm);
+  overflow: auto;
+  border-radius: var(--mcpad-radius-sm);
+  background: var(--mcpad-bg);
+  color: var(--mcpad-fg-secondary);
+  font-family: var(--mcpad-typography-font-family-mono);
+  font-size: var(--mcpad-typography-font-size-xs);
+  white-space: pre-wrap;
+}
+
+.app-mcp-card-actions {
+  display: flex;
+  gap: var(--mcpad-spacing-sm);
+}
+
+.app-mcp-card-actions button {
+  padding: var(--mcpad-spacing-sm) var(--mcpad-spacing-md);
+  border: 1px solid var(--mcpad-border);
+  border-radius: var(--mcpad-radius-sm);
+  background: var(--mcpad-bg);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.app-mcp-card-actions .app-mcp-allow {
+  border-color: transparent;
+  background: var(--mcpad-accent);
+  color: var(--mcpad-accent-fg);
+}

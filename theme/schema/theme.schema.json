@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mcpad.chekak.store/schema/theme-1.json",
+  "title": "MCPad Theme",
+  "description": "Runtime theme of MCPad. Themes are plain JSON documents: the frontend turns every token into a `--mcpad-*` CSS custom property, the Rust core reads the same tokens through serde.",
+  "type": "object",
+  "required": ["name", "version", "mode", "tokens"],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "mode": {
+      "enum": ["light", "dark", "high-contrast"]
+    },
+    "author": { "type": "string" },
+    "description": { "type": "string" },
+    "icons": {
+      "type": "object",
+      "description": "Icon name to relative path of an SVG file inside the theme folder.",
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    },
+    "tokens": {
+      "type": "object",
+      "required": ["color", "typography", "radius", "shadow", "density", "icon"],
+      "additionalProperties": false,
+      "properties": {
+        "color": {
+          "type": "object",
+          "required": ["primitive", "semantic", "component"],
+          "additionalProperties": false,
+          "properties": {
+            "primitive": {
+              "type": "object",
+              "description": "Raw palette. A theme may override any subset of the built-in palette.",
+              "additionalProperties": { "$ref": "#/$defs/colorScale" }
+            },
+            "semantic": {
+              "type": "object",
+              "required": [
+                "surface",
+                "text",
+                "border",
+                "accent",
+                "status",
+                "editor",
+                "canvas",
+                "diff"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "surface": { "$ref": "#/$defs/surfaceTokens" },
+                "text": { "$ref": "#/$defs/textTokens" },
+                "border": { "$ref": "#/$defs/borderTokens" },
+                "accent": { "$ref": "#/$defs/accentTokens" },
+                "status": { "$ref": "#/$defs/statusTokens" },
+                "editor": { "$ref": "#/$defs/editorTokens" },
+                "canvas": { "$ref": "#/$defs/canvasTokens" },
+                "diff": { "$ref": "#/$defs/diffTokens" }
+              }
+            },
+            "component": {
+              "type": "object",
+              "description": "Component level overrides, keyed by component name.",
+              "additionalProperties": {
+                "type": "object",
+                "additionalProperties": { "$ref": "#/$defs/color" }
+              }
+            }
+          }
+        },
+        "typography": {
+          "type": "object",
+          "required": ["fontFamily", "fontSize", "fontWeight", "lineHeight", "letterSpacing"],
+          "additionalProperties": false,
+          "properties": {
+            "fontFamily": {
+              "type": "object",
+              "required": ["sans", "mono", "ui"],
+              "additionalProperties": { "type": "string", "minLength": 1 }
+            },
+            "fontSize": {
+              "type": "object",
+              "required": ["xs", "sm", "md", "lg", "xl", "xxl"],
+              "additionalProperties": { "type": "string", "minLength": 1 }
+            },
+            "fontWeight": {
+              "type": "object",
+              "required": ["regular", "medium", "semibold", "bold"],
+              "additionalProperties": { "type": "integer", "minimum": 100, "maximum": 900 }
+            },
+            "lineHeight": {
+              "type": "object",
+              "required": ["tight", "normal", "relaxed"],
+              "additionalProperties": { "type": "number", "exclusiveMinimum": 0 }
+            },
+            "letterSpacing": {
+              "type": "object",
+              "required": ["normal", "wide"],
+              "additionalProperties": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "radius": {
+          "type": "object",
+          "required": ["none", "xs", "sm", "md", "lg", "xl", "full"],
+          "additionalProperties": { "type": "string", "minLength": 1 }
+        },
+        "shadow": {
+          "type": "object",
+          "required": ["none", "xs", "sm", "md", "lg", "focus"],
+          "additionalProperties": { "type": "string", "minLength": 1 }
+        },
+        "density": {
+          "type": "object",
+          "required": ["scale", "spacingUnit"],
+          "additionalProperties": false,
+          "properties": {
+            "scale": { "type": "number", "exclusiveMinimum": 0 },
+            "spacingUnit": { "type": "string", "minLength": 1 }
+          }
+        },
+        "icon": {
+          "type": "object",
+          "required": ["set", "size", "strokeWidth"],
+          "additionalProperties": false,
+          "properties": {
+            "set": { "type": "string", "minLength": 1 },
+            "size": {
+              "type": "object",
+              "required": ["xs", "sm", "md", "lg", "xl"],
+              "additionalProperties": { "type": "string", "minLength": 1 }
+            },
+            "strokeWidth": {
+              "type": "object",
+              "required": ["thin", "normal", "bold"],
+              "additionalProperties": { "type": "number", "exclusiveMinimum": 0 }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "color": {
+      "type": "string",
+      "pattern": "^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$"
+    },
+    "colorScale": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/color" }
+    },
+    "surfaceTokens": {
+      "type": "object",
+      "required": ["base", "raised", "sunken", "overlay", "hover", "active", "selected"],
+      "additionalProperties": { "$ref": "#/$defs/color" }
+    },
+    "textTokens": {
+      "type": "object",
+      "required": ["primary", "secondary", "muted", "inverse", "link", "code"],
+      "additionalProperties": { "$ref": "#/$defs/color" }
+    },
+    "borderTokens": {
+      "type": "object",
+      "required": ["default", "strong", "subtle", "focus"],
+      "additionalProperties": { "$ref": "#/$defs/color" }
+    },
+    "accentTokens": {
+      "type": "object",
+      "required": ["default", "hover", "active", "subtle", "on"],
+      "additionalProperties": { "$ref": "#/$defs/color" }
+    },
+    "statusTokens": {
+      "type": "object",
+      "required": ["success", "warning", "danger", "info"],
+      "additionalProperties": { "$ref": "#/$defs/color" }
+    },
+    "editorTokens": {
+      "type": "object",
+      "required": [
+        "bg",
+        "gutterBg",
+        "gutterText",
+        "activeLine",
+        "selection",
+        "selectionInactive",
+        "cursor",
+        "matchingBracket",
+        "indentGuide",
+        "findMatch",
+        "findMatchCurrent"
+      ],
+      "additionalProperties": { "$ref": "#/$defs/color" }
+    },
+    "canvasTokens": {
+      "type": "object",
+      "required": [
+        "bg",
+        "grid",
+        "gridMajor",
+        "nodeBg",
+        "nodeBorder",
+        "nodeSelected",
+        "nodeText",
+        "edge",
+        "edgeLabel",
+        "groupBg",
+        "groupBorder",
+        "groupLabel"
+      ],
+      "additionalProperties": { "$ref": "#/$defs/color" }
+    },
+    "diffTokens": {
+      "type": "object",
+      "required": ["added", "removed", "modified"],
+      "additionalProperties": { "$ref": "#/$defs/color" }
+    }
+  }
+}

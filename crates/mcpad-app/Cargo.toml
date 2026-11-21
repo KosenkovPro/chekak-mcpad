@@ -1,0 +1,19 @@
+[package]
+name = "mcpad-app"
+description = "Application service layer of MCPad: the operations the desktop shell, the CLI and the MCP server share"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+mcpad-core = { workspace = true }
+mcpad-text = { workspace = true }
+regex = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }

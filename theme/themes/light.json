@@ -1,0 +1,231 @@
+{
+  "name": "MCPad Light",
+  "version": 1,
+  "mode": "light",
+  "author": "Ivan Kosenkov",
+  "description": "Default light theme of MCPad.",
+  "tokens": {
+    "color": {
+      "primitive": {
+        "gray": {
+          "50": "#f7f8fa",
+          "100": "#eef0f4",
+          "300": "#c9ced8",
+          "500": "#6b7280",
+          "700": "#374151",
+          "900": "#111827"
+        },
+        "blue": {
+          "50": "#eff6ff",
+          "100": "#dbeafe",
+          "300": "#93c5fd",
+          "500": "#3b82f6",
+          "700": "#1d4ed8",
+          "900": "#1e3a8a"
+        },
+        "red": {
+          "50": "#fef2f2",
+          "100": "#fee2e2",
+          "300": "#fca5a5",
+          "500": "#dc2626",
+          "700": "#b91c1c",
+          "900": "#7f1d1d"
+        },
+        "green": {
+          "50": "#f0fdf4",
+          "100": "#dcfce7",
+          "300": "#86efac",
+          "500": "#16a34a",
+          "700": "#15803d",
+          "900": "#14532d"
+        },
+        "amber": {
+          "50": "#fffbeb",
+          "100": "#fef3c7",
+          "300": "#fcd34d",
+          "500": "#d97706",
+          "700": "#b45309",
+          "900": "#78350f"
+        },
+        "violet": {
+          "50": "#f5f3ff",
+          "100": "#ede9fe",
+          "300": "#c4b5fd",
+          "500": "#7c3aed",
+          "700": "#6d28d9",
+          "900": "#4c1d95"
+        }
+      },
+      "semantic": {
+        "surface": {
+          "base": "#ffffff",
+          "raised": "#f7f8fa",
+          "sunken": "#eef0f4",
+          "overlay": "#ffffff",
+          "hover": "#f1f5f9",
+          "active": "#e2e8f0",
+          "selected": "#dbeafe"
+        },
+        "text": {
+          "primary": "#111827",
+          "secondary": "#374151",
+          "muted": "#6b7280",
+          "inverse": "#ffffff",
+          "link": "#1d4ed8",
+          "code": "#6d28d9"
+        },
+        "border": {
+          "default": "#c9ced8",
+          "strong": "#9aa3b2",
+          "subtle": "#e2e8f0",
+          "focus": "#3b82f6"
+        },
+        "accent": {
+          "default": "#2563eb",
+          "hover": "#1d4ed8",
+          "active": "#1e40af",
+          "subtle": "#dbeafe",
+          "on": "#ffffff"
+        },
+        "status": {
+          "success": "#16a34a",
+          "warning": "#d97706",
+          "danger": "#dc2626",
+          "info": "#0284c7"
+        },
+        "editor": {
+          "bg": "#ffffff",
+          "gutterBg": "#f7f8fa",
+          "gutterText": "#6b7280",
+          "activeLine": "#f1f5f9",
+          "selection": "#bfdbfe",
+          "selectionInactive": "#e0e7ff",
+          "cursor": "#1d4ed8",
+          "matchingBracket": "#d97706",
+          "indentGuide": "#e2e8f0",
+          "findMatch": "#fde68a",
+          "findMatchCurrent": "#fbbf24"
+        },
+        "canvas": {
+          "bg": "#f7f8fa",
+          "grid": "#e2e8f0",
+          "gridMajor": "#c9ced8",
+          "nodeBg": "#ffffff",
+          "nodeBorder": "#c9ced8",
+          "nodeSelected": "#2563eb",
+          "nodeText": "#111827",
+          "edge": "#6b7280",
+          "edgeLabel": "#374151",
+          "groupBg": "#f1f5f9",
+          "groupBorder": "#9aa3b2",
+          "groupLabel": "#b45309"
+        },
+        "diff": {
+          "added": "#dcfce7",
+          "removed": "#fee2e2",
+          "modified": "#fef3c7"
+        }
+      },
+      "component": {
+        "tab": {
+          "bg": "#eef0f4",
+          "activeBg": "#ffffff",
+          "activeText": "#111827",
+          "inactiveText": "#6b7280",
+          "hoverBg": "#e2e8f0"
+        },
+        "sidebar": {
+          "bg": "#f7f8fa",
+          "border": "#e2e8f0",
+          "text": "#374151"
+        },
+        "toolbar": {
+          "bg": "#ffffff",
+          "border": "#e2e8f0",
+          "text": "#374151"
+        },
+        "statusbar": {
+          "bg": "#f7f8fa",
+          "text": "#6b7280"
+        },
+        "modal": {
+          "overlay": "#11182766",
+          "bg": "#ffffff",
+          "border": "#c9ced8"
+        },
+        "mcp": {
+          "toolRead": "#0284c7",
+          "toolWrite": "#d97706",
+          "toolPending": "#7c3aed",
+          "badge": "#2563eb"
+        }
+      }
+    },
+    "typography": {
+      "fontFamily": {
+        "sans": "Inter, 'Segoe UI', system-ui, -apple-system, sans-serif",
+        "mono": "'JetBrains Mono', 'Cascadia Code', Consolas, monospace",
+        "ui": "system-ui, -apple-system, 'Segoe UI', sans-serif"
+      },
+      "fontSize": {
+        "xs": "11px",
+        "sm": "12px",
+        "md": "13px",
+        "lg": "15px",
+        "xl": "18px",
+        "xxl": "22px"
+      },
+      "fontWeight": {
+        "regular": 400,
+        "medium": 500,
+        "semibold": 600,
+        "bold": 700
+      },
+      "lineHeight": {
+        "tight": 1.25,
+        "normal": 1.5,
+        "relaxed": 1.7
+      },
+      "letterSpacing": {
+        "normal": "0",
+        "wide": "0.02em"
+      }
+    },
+    "radius": {
+      "none": "0",
+      "xs": "2px",
+      "sm": "4px",
+      "md": "6px",
+      "lg": "10px",
+      "xl": "16px",
+      "full": "9999px"
+    },
+    "shadow": {
+      "none": "none",
+      "xs": "0 1px 2px rgba(0, 0, 0, 0.12)",
+      "sm": "0 2px 6px rgba(0, 0, 0, 0.16)",
+      "md": "0 8px 24px rgba(0, 0, 0, 0.20)",
+      "lg": "0 16px 48px rgba(0, 0, 0, 0.28)",
+      "focus": "0 0 0 2px rgba(37, 99, 235, 0.45)"
+    },
+    "density": {
+      "scale": 1,
+      "spacingUnit": "4px"
+    },
+    "icon": {
+      "set": "mcpad",
+      "size": {
+        "xs": "14px",
+        "sm": "16px",
+        "md": "18px",
+        "lg": "22px",
+        "xl": "28px"
+      },
+      "strokeWidth": {
+        "thin": 1,
+        "normal": 1.5,
+        "bold": 2
+      }
+    }
+  }
+}

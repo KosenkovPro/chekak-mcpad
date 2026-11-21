@@ -1,0 +1,231 @@
+{
+  "name": "MCPad High Contrast",
+  "version": 1,
+  "mode": "high-contrast",
+  "author": "Ivan Kosenkov",
+  "description": "Maximum contrast theme for bright rooms and low vision.",
+  "tokens": {
+    "color": {
+      "primitive": {
+        "gray": {
+          "50": "#ffffff",
+          "100": "#f2f2f2",
+          "300": "#bfbfbf",
+          "500": "#8a8a8a",
+          "700": "#3f3f3f",
+          "900": "#000000"
+        },
+        "blue": {
+          "50": "#e8f1ff",
+          "100": "#cfe3ff",
+          "300": "#7fb0ff",
+          "500": "#0057ff",
+          "700": "#003fb3",
+          "900": "#00246b"
+        },
+        "red": {
+          "50": "#ffecec",
+          "100": "#ffd5d5",
+          "300": "#ff9c9c",
+          "500": "#d40000",
+          "700": "#990000",
+          "900": "#5c0000"
+        },
+        "green": {
+          "50": "#e8ffe8",
+          "100": "#d0ffd0",
+          "300": "#8cff8c",
+          "500": "#008000",
+          "700": "#005c00",
+          "900": "#003d00"
+        },
+        "amber": {
+          "50": "#fff6d6",
+          "100": "#ffeaa0",
+          "300": "#ffd94d",
+          "500": "#a06000",
+          "700": "#704300",
+          "900": "#4a2d00"
+        },
+        "violet": {
+          "50": "#f2eaff",
+          "100": "#e2d4ff",
+          "300": "#bfa0ff",
+          "500": "#6b00ff",
+          "700": "#4c00b3",
+          "900": "#2e0070"
+        }
+      },
+      "semantic": {
+        "surface": {
+          "base": "#000000",
+          "raised": "#0a0a0a",
+          "sunken": "#000000",
+          "overlay": "#141414",
+          "hover": "#1c1c1c",
+          "active": "#262626",
+          "selected": "#003fb3"
+        },
+        "text": {
+          "primary": "#ffffff",
+          "secondary": "#e8e8e8",
+          "muted": "#c0c0c0",
+          "inverse": "#000000",
+          "link": "#7fb0ff",
+          "code": "#bfa0ff"
+        },
+        "border": {
+          "default": "#8a8a8a",
+          "strong": "#ffffff",
+          "subtle": "#4a4a4a",
+          "focus": "#ffd94d"
+        },
+        "accent": {
+          "default": "#0057ff",
+          "hover": "#7fb0ff",
+          "active": "#003fb3",
+          "subtle": "#00246b",
+          "on": "#ffffff"
+        },
+        "status": {
+          "success": "#00c000",
+          "warning": "#ffd94d",
+          "danger": "#ff4d4d",
+          "info": "#7fb0ff"
+        },
+        "editor": {
+          "bg": "#000000",
+          "gutterBg": "#000000",
+          "gutterText": "#c0c0c0",
+          "activeLine": "#141414",
+          "selection": "#003fb3",
+          "selectionInactive": "#262626",
+          "cursor": "#ffd94d",
+          "matchingBracket": "#ffd94d",
+          "indentGuide": "#262626",
+          "findMatch": "#a06000",
+          "findMatchCurrent": "#ffd94d"
+        },
+        "canvas": {
+          "bg": "#000000",
+          "grid": "#1c1c1c",
+          "gridMajor": "#262626",
+          "nodeBg": "#0a0a0a",
+          "nodeBorder": "#c0c0c0",
+          "nodeSelected": "#ffd94d",
+          "nodeText": "#ffffff",
+          "edge": "#e8e8e8",
+          "edgeLabel": "#ffffff",
+          "groupBg": "#141414",
+          "groupBorder": "#8a8a8a",
+          "groupLabel": "#ffd94d"
+        },
+        "diff": {
+          "added": "#005c00",
+          "removed": "#990000",
+          "modified": "#704300"
+        }
+      },
+      "component": {
+        "tab": {
+          "bg": "#000000",
+          "activeBg": "#141414",
+          "activeText": "#ffffff",
+          "inactiveText": "#c0c0c0",
+          "hoverBg": "#1c1c1c"
+        },
+        "sidebar": {
+          "bg": "#000000",
+          "border": "#4a4a4a",
+          "text": "#e8e8e8"
+        },
+        "toolbar": {
+          "bg": "#0a0a0a",
+          "border": "#4a4a4a",
+          "text": "#e8e8e8"
+        },
+        "statusbar": {
+          "bg": "#000000",
+          "text": "#c0c0c0"
+        },
+        "modal": {
+          "overlay": "#000000b3",
+          "bg": "#0a0a0a",
+          "border": "#ffffff"
+        },
+        "mcp": {
+          "toolRead": "#7fb0ff",
+          "toolWrite": "#ffd94d",
+          "toolPending": "#bfa0ff",
+          "badge": "#0057ff"
+        }
+      }
+    },
+    "typography": {
+      "fontFamily": {
+        "sans": "Inter, 'Segoe UI', system-ui, -apple-system, sans-serif",
+        "mono": "'JetBrains Mono', 'Cascadia Code', Consolas, monospace",
+        "ui": "system-ui, -apple-system, 'Segoe UI', sans-serif"
+      },
+      "fontSize": {
+        "xs": "11px",
+        "sm": "12px",
+        "md": "13px",
+        "lg": "15px",
+        "xl": "18px",
+        "xxl": "22px"
+      },
+      "fontWeight": {
+        "regular": 400,
+        "medium": 500,
+        "semibold": 600,
+        "bold": 700
+      },
+      "lineHeight": {
+        "tight": 1.25,
+        "normal": 1.5,
+        "relaxed": 1.7
+      },
+      "letterSpacing": {
+        "normal": "0",
+        "wide": "0.02em"
+      }
+    },
+    "radius": {
+      "none": "0",
+      "xs": "2px",
+      "sm": "4px",
+      "md": "6px",
+      "lg": "10px",
+      "xl": "16px",
+      "full": "9999px"
+    },
+    "shadow": {
+      "none": "none",
+      "xs": "0 1px 2px rgba(0, 0, 0, 0.12)",
+      "sm": "0 2px 6px rgba(0, 0, 0, 0.16)",
+      "md": "0 8px 24px rgba(0, 0, 0, 0.20)",
+      "lg": "0 16px 48px rgba(0, 0, 0, 0.28)",
+      "focus": "0 0 0 2px rgba(37, 99, 235, 0.45)"
+    },
+    "density": {
+      "scale": 1,
+      "spacingUnit": "4px"
+    },
+    "icon": {
+      "set": "mcpad",
+      "size": {
+        "xs": "14px",
+        "sm": "16px",
+        "md": "18px",
+        "lg": "22px",
+        "xl": "28px"
+      },
+      "strokeWidth": {
+        "thin": 1,
+        "normal": 1.5,
+        "bold": 2
+      }
+    }
+  }
+}
