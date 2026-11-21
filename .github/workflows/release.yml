@@ -51,7 +51,7 @@ jobs:
           '
 
   release:
-    name: Release ${{ env.RELEASE_TAG }}
+    name: Create the release
     needs: check
     runs-on: ubuntu-latest
     permissions:
@@ -95,6 +95,7 @@ jobs:
   bundle:
     name: MCPad ${{ matrix.platform }}
     needs: release
+    runs-on: ${{ matrix.platform }}
     permissions:
       contents: write
     strategy:
